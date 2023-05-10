@@ -1,82 +1,58 @@
-# svelte-masonry
+# create-svelte
 
-This is an implementation of Masonry based on this excellent article by Ana Tudor (@anatudor) on CSS Tricks: https://css-tricks.com/a-lightweight-masonry-solution. It's really great. It requires no external dependencies, is super light-weight, etc.
+Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-Basically I just wrapped Svelte around the Masonry code as a reusable component.
+Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
 
-Here's a REPL demo: https://svelte.dev/repl/d5ff70834832498882d1570b9355561e?version=3.24.1
+## Creating a project
 
+If you're seeing this, you've probably already done this step. Congrats!
 
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-
-
-## Usage
-
-Add svelte-masonry to your package:
-
-```
-npm install svelte-masonry
+# create a new project in my-app
+npm create svelte@latest my-app
 ```
 
-or use yarn
+## Developing
 
-```
-yarn add svelte-masonry
-```
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-Then import the masonry component in your project. Honestly I'm not sure if this is the correct way, but this method works on my projects:
+```bash
+npm run dev
 
-```
-import Masonry from 'svelte-masonry/Masonry.svelte'
-```
-
-Now you can use it as component and wrap around your repeating `{#each}` blocks.
-
-
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-<Masonry>
-  {#each data as o}
-    <div>
-    	Content: {o.content}
-    </div>
-  {/each}
-</Masonry>
+Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
 
-``` 
+## Building
 
-If you have any implementation questions, please hit me up on twitter @yawnxyz or create an issue.
+To build your library:
 
+```bash
+npm run package
+```
 
+To create a production version of your showcase app:
 
-## Manually Refreshing
+```bash
+npm run build
+```
 
-Sometimes you might need to dynamically refresh the grid calculations. You can do this by binding `refreshLayout` like so: `bind:refreshLayout={refreshLayout}` and then calling that function when everything's finished loading. Here's an example: https://svelte.dev/repl/2c5a8e5ae579471ea22b3f5561268d11?version=3.24.1
+You can preview the production build with `npm run preview`.
 
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
-## Options
+## Publishing
 
-There are a few props you can pass to the Svelte component as options.
+Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
 
-- `stretchFirst` (default: `false`): Setting `stretchFirst={true}` will stretch the first item across all items
-- `gridGap` (default: `".5em;"`): This is a CSS value that sets the grid gap and padding for each element 
-- `colWidth` (default: `"minmax(Min(20em, 100%), 1fr);"`): This is a CSS value that sets the width of each column. The default allows for some leeway before the grids collapse.
-- `items` (default: `[]`): Set this to your array of data if you have dynamic items and want masonry to recalculate when you add new items
+To publish your library to [npm](https://www.npmjs.com):
 
-
-
-
-## Development + Feedback
-
-You're welcome to create an issue, feature request, or a pull request and I'll take a look, but this won't be a very managed repo. Instead, please read the the CSS tricks articlecheck out the source code, or ask the author (@anatudor) directly.
-
-
-
-
-## License
-
-The code was lifted from Ana Tudor (@anatudor) from CSS tricks. They have a funny license page, so you should take a look (https://css-tricks.com/license/). Do whatever you'd like with this example! 
-
-
-
-
+```bash
+npm publish
+```
