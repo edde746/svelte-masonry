@@ -1,6 +1,6 @@
 {
   "name": "@edde746/svelte-masonry",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && npm run package",

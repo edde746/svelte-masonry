@@ -1,1 +1,2 @@
-// Reexport your entry components here
+import Masonry from './Masonry.svelte';
+export default Masonry;

@@ -49,7 +49,6 @@
   };
 
   const calcGrid = async (_masonryArr: HTMLElement[]) => {
-    console.log('calcGrid');
     await tick();
     if (_masonryArr.length && getComputedStyle(_masonryArr[0]).gridTemplateRows !== 'masonry') {
       grids = _masonryArr.map((grid) => {
