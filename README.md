@@ -1,58 +1,49 @@
-# create-svelte
+# svelte-masonry
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A lightweight and dependency-free Masonry component for Svelte, based on the [article by Ana Tudor (@anatudor) on CSS Tricks](https://css-tricks.com/a-lightweight-masonry-solution).
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+Originally coded by [janzheng](https://github.com/janzheng) and updated by [edde746](https://github.com/edde746).
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Installation
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+npm install @edde746/svelte-masonry
 ```
 
-## Developing
+## Usage
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```javascript
+import Masonry from "@edde746/svelte-masonry";
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
-
-## Building
-
-To build your library:
-
-```bash
-npm run package
+```html
+<Masonry update={itemCount} stretchFirst>
+  {#each data.slice(0, itemCount) as o}
+    <div class="card">
+      <header>
+        <h3>{o.name}</h3>
+      </header>
+      <section>
+        <p>{o.text}</p>
+      </section>
+    </div>
+  {/each}
+</Masonry>
 ```
 
-To create a production version of your showcase app:
+**Note:** Make sure to update the `itemCount` variable whenever you want to update the layout.
 
-```bash
-npm run build
-```
+## Props
 
-You can preview the production build with `npm run preview`.
+| Prop          | Type   | Default   | Description                                                    |
+|---------------|--------|-----------|----------------------------------------------------------------|
+| stretchFirst  | bool   | `false`   | Whether the first item should stretch across all grid columns. |
+| gridGap       | string | `"0.5em"`  | The gap between grid items.                                   |
+| colWidth      | string | `"minmax(min(20em, 100%), 1fr)"` | The width of the grid columns.          |
+| update        | any    |           | A variable to trigger layout updates.                          |
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Functions
 
-## Publishing
+### `refreshLayout()`
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
-```
+Use this function to manually trigger a layout refresh. This might be useful in cases when the content of the grid items changes.
