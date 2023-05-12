@@ -41,6 +41,7 @@ import Masonry from "@edde746/svelte-masonry";
 | gridGap       | string | `"0.5em"`  | The gap between grid items.                                   |
 | colWidth      | string | `"minmax(min(20em, 100%), 1fr)"` | The width of the grid columns.          |
 | update        | any    |           | A variable to trigger layout updates.                          |
+| rearrange     | bool   | `false`   | Whether to rearrange the grid items to best fill vertical space. |
 
 ## Functions
 

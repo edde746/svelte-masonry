@@ -86,7 +86,7 @@
 
   <p>
     Here's a pretty basic demo on how this Masonry component code works (<a
-      href="https://github.com/janzheng/svelte-masonry#readme">get it here</a
+      href="https://github.com/edde746/svelte-masonry#readme">get it here</a
     >). Make this window wider to see what happens! This is an implementation of Masonry based on this excellent article
     by Ana Tudor (@anatudor) on CSS Tricks:
     <a href="https://css-tricks.com/a-lightweight-masonry-solution"

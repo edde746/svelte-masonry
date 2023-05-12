@@ -4,6 +4,7 @@
   export let stretchFirst = false,
     gridGap = '0.5em',
     colWidth = 'minmax(min(20em, 100%), 1fr)',
+    rearrange = false,
     update: any;
 
   interface Grid {
@@ -20,27 +21,40 @@
   export const refreshLayout = async () => {
     grids.forEach(async (grid) => {
       let ncol = getComputedStyle(grid._el).gridTemplateColumns.split(' ').length;
+      if (rearrange) {
+        const columnHeights = Array.from({ length: ncol }, () => 0);
 
-      grid.items.forEach((c: HTMLElement) => {
-        let new_h = c.getBoundingClientRect().height;
+        for (let order = 0; order < grid.items.length; order += ncol) {
+          let heights = grid.items
+            .slice(order, order + ncol)
+            .map((c, j) => ({ i: order + j, h: c.getBoundingClientRect().height }));
 
-        if (new_h !== +c.dataset.h) {
-          c.dataset.h = new_h;
-          grid.mod++;
+          heights.sort((a, b) => b.h - a.h);
+
+          for (let item of heights) {
+            let maxColIndex = columnHeights.indexOf(Math.min(...columnHeights));
+            grid.items[item.i].style.order = String(order + maxColIndex);
+            columnHeights[maxColIndex] += item.h;
+          }
         }
-      });
+      }
 
       if (grid.ncol !== ncol || grid.mod) {
         grid.ncol = ncol;
         grid.items.forEach((c) => c.style.removeProperty('margin-top'));
 
         if (grid.ncol > 1) {
-          grid.items.slice(ncol).forEach((c, i) => {
-            let prev_fin = grid.items[i].getBoundingClientRect().bottom,
-              curr_ini = c.getBoundingClientRect().top;
+          grid.items
+            .sort((a, b) => {
+              return +getComputedStyle(a).order - +getComputedStyle(b).order;
+            })
+            .slice(ncol)
+            .forEach((c, i) => {
+              let prev_fin = grid.items[i].getBoundingClientRect().bottom,
+                curr_ini = c.getBoundingClientRect().top;
 
-            c.style.marginTop = `${prev_fin + grid.gap - curr_ini}px`;
-          });
+              c.style.marginTop = `${prev_fin + grid.gap - curr_ini}px`;
+            });
         }
 
         grid.mod = 0;
