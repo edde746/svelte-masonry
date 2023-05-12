@@ -23,6 +23,7 @@
       let ncol = getComputedStyle(grid._el).gridTemplateColumns.split(' ').length;
       if (rearrange) {
         const columnHeights = Array.from({ length: ncol }, () => 0);
+        const gap = parseFloat(getComputedStyle(grid._el).gap);
 
         for (let order = 0; order < grid.items.length; order += ncol) {
           let heights = grid.items
@@ -34,7 +35,7 @@
           for (let item of heights) {
             let maxColIndex = columnHeights.indexOf(Math.min(...columnHeights));
             grid.items[item.i].style.order = String(order + maxColIndex);
-            columnHeights[maxColIndex] += item.h;
+            columnHeights[maxColIndex] += item.h + gap;
           }
         }
       }
