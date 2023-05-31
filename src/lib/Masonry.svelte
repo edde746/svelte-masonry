@@ -88,7 +88,7 @@
 
 <div
   bind:this={masonryElement}
-  class="masonry-grid"
+  class="masonry-grid {$$props.class}"
   class:stretch-first={stretchFirst}
   style="--grid-gap:{gridGap};--col-width:{colWidth}"
 >
@@ -102,7 +102,6 @@
     grid-template-rows: masonry;
     justify-content: center;
     grid-gap: var(--grid-gap);
-    padding: var(--grid-gap);
   }
   :global(.masonry-grid > *) {
     align-self: start;
